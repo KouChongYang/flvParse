@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/nareix/bits"
 	"io"
-	"github.com/KouBianJing/flvparse/av"
+	"github.com/KouBianJing/flvParse/av"
 	"time"
 )
 
