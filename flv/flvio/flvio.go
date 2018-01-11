@@ -2,7 +2,7 @@ package flvio
 import (
 	"fmt"
 	"github.com/nareix/bits/pio"
-	"github.com/KouBianJing/flvparse/av"
+	"github.com/KouChongYang/flvParse/av"
 	"io"
 	"time"
 	"encoding/hex"

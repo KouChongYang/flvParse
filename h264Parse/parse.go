@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/nareix/bits"
 	"github.com/nareix/bits/pio"
-	"github.com/KouBianJing/flvparse/av"
+	"github.com/KouChongYang/flvParse/av"
 )
 
 const (

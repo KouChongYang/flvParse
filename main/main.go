@@ -2,7 +2,7 @@ package main
 
 import (
 	"os"
-	"github.com/KouBianJing/flvparse/flv"
+	"github.com/KouChongYang/flvParse/flv"
 	"fmt"
 	"flag"
 )
