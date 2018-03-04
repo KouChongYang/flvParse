@@ -77,7 +77,7 @@ type NALUs struct {
 type flvHeadMsg struct {
 	FlvFlag string
 	TagHeaderLeng int
-	HeadData []byte
+	HeadData string
 
 }
 
@@ -162,7 +162,7 @@ func(self *Demuxer) FlvParse()(err error){
 	tagflag = tagflag0 + tagflag1
 	flvhead.FlvFlag = tagflag
 	flvhead.TagHeaderLeng = flvio.FileHeaderLength + skip
-	flvhead.HeadData = self.b[:flvio.TagHeaderLength + skip]
+	flvhead.HeadData = hex.EncodeToString(self.b[:flvio.TagHeaderLength + skip])
 	flvheads,_:=json.MarshalIndent(flvhead,"","")
 	fmt.Println(string(flvheads))
 	fmt.Println("===================================flv data===============================")
