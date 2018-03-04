@@ -16,6 +16,7 @@ import (
 	//"encoding/hex"
 	"github.com/KouChongYang/flvParse/amf"
 	//"encoding/hex"
+	"encoding/hex"
 )
 
 var MaxProbePacketCount = 20
@@ -70,7 +71,7 @@ type NALUs struct {
 	NaluType string //
 	NaluTypeNum int
 	NaluLen int
-	NaluData []byte
+	NaluData string
 }
 
 type flvHeadMsg struct {
@@ -157,14 +158,13 @@ func(self *Demuxer) FlvParse()(err error){
 		tagflag1 = " haveVideo "
 		self.prober.HasVideo = true
 	}
-	fmt.Println("all data have base64 encode !")
+
 	tagflag = tagflag0 + tagflag1
 	flvhead.FlvFlag = tagflag
 	flvhead.TagHeaderLeng = flvio.FileHeaderLength + skip
 	flvhead.HeadData = self.b[:flvio.TagHeaderLength + skip]
 	flvheads,_:=json.MarshalIndent(flvhead,"","")
 	fmt.Println(string(flvheads))
-	fmt.Println("all data have base64 encode !")
 	fmt.Println("===================================flv data===============================")
 	tagnum:=int64(0)
 
@@ -225,9 +225,9 @@ func(self *Demuxer) FlvParse()(err error){
 						if len(nalu) > 0 {
 							naltype := nalu[0] & 0x1f
 							if len(nalu) < 32 {
-								nls.NaluData = nalu
+								nls.NaluData = hex.EncodeToString(nalu)
 							}else{
-								nls.NaluData = nalu[0:32]
+								nls.NaluData = hex.EncodeToString(nalu[0:32])
 							}
 							//case 1, 2, 5, 19:
 							nls.NaluTypeNum = int(naltype)
@@ -310,15 +310,15 @@ func(self *Demuxer) FlvParse()(err error){
 				}
 			}
 			if len(tag.Data) < 32 {
-				tagmsg.Packet = tag.Data
+				tagmsg.Packet = hex.EncodeToString(tag.Data)
 			}else{
-				tagmsg.Packet = tag.Data[0:32]
+				tagmsg.Packet = hex.EncodeToString(tag.Data[0:32])
 			}
 		}
 		Print:
 			tagmsgs,_:=json.MarshalIndent(tagmsg,"","")
 			fmt.Println(string(tagmsgs))
-			fmt.Println("all data have base64 encode !")
+
 			fmt.Printf("============**********************=========%d=======********************============\n",tagnum)
 		tagnum++
 	}
